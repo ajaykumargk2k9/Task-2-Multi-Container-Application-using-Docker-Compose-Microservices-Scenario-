@@ -745,3 +745,97 @@ docker stop student-backend-container
 docker rm student-backend-container
 
 ![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Stop%20and%20remove%20docker%20compose%20container%20.png?raw=true)
+
+---
+
+Dockerize the Frontend Using Nginx
+
+Containerize the frontend using the official Nginx image so it serves your HTML, CSS and JavaScript files.
+
+Create a Dockerfile
+
+Inside the frontend folder create a file named
+
+Dockerfile
+
+Add the following
+
+FROM nginx:latest
+
+COPY . /usr/share/nginx/html
+
+EXPOSE 80
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Frontend%20dockerfile.png?raw=true)
+
+---
+
+Create the Frontend Folder structure
+
+Build the Image
+
+Navigate to the frontend folder
+
+cd frontend
+
+Build the image
+
+docker build -t student-frontend .
+
+Verify the Image
+
+docker images
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Frontend%20build.png?raw=true)
+
+---
+
+Run the Container
+
+docker run -d -p 8080:80 --name student-frontend-container student-frontend
+
+Verify the Container
+
+docker ps
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/frontend%20container.png?raw=true)
+
+---
+
+Test the Frontend
+
+Open
+
+http://localhost:8080
+
+Click Load Students.
+
+Since the backend is running on port 3000 the frontend should fetch data from and display the student records.
+
+http://localhost:3000/students
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/frontend%2080%20UI.png?raw=true)
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/frontend%2080%20UI%20students.png?raw=true)
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Frontend%20students%20.png?raw=true)
+
+---
+
+Check Logs
+
+docker logs student-frontend-container
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Frontend%20container%20logs%20.png?raw=true)
+
+---
+
+Stop and Remove the Container
+
+docker stop student-frontend-container
+
+docker rm student-frontend-container
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Frontend%20container%20stop.png?raw=true)
+
+
