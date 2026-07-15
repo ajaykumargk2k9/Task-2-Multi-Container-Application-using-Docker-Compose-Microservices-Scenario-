@@ -352,5 +352,43 @@ EXIT;
 ![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Exit.png?raw=true)
 
 
+---
 
+Connect Node.js Backend to MySQL
 
+Our backend will fetch data directly from the MySQL database running in Docker.
+
+Create a Database Connection
+
+Inside the backend folder create a file structure
+
+backend/
+│
+├── app.js
+├── db.js   ← Create this file
+├── package.json
+└── Dockerfile
+
+Add Database Connection Code
+
+Create backend/db.js:
+
+const mysql = require("mysql2");
+
+const connection = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "root123",
+    database: "studentdb"
+});
+
+connection.connect((err) => {
+    if (err) {
+        console.log("Database connection failed");
+        console.log(err);
+    } else {
+        console.log("Connected to MySQL");
+    }
+});
+
+module.exports = connection;
