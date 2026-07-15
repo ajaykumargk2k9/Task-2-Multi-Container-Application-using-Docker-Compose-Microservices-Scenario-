@@ -839,3 +839,230 @@ docker rm student-frontend-container
 ![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Frontend%20container%20stop.png?raw=true)
 
 
+---
+
+Docker Compose
+
+Instead of running three separate docker run commands we'll start the entire application with one command.
+
+This is how applications are commonly run in development and testing environments.
+
+Right now you have
+
+Container 1 → Frontend
+
+Container 2 → Backend
+
+Container 3 → MySQL
+
+We start them separately.
+
+Create a .env File
+
+In the project root (student-management/) create
+
+.env
+
+Add
+
+MYSQL_ROOT_PASSWORD=root123
+MYSQL_DATABASE=studentdb
+MYSQL_USER=root
+MYSQL_PASSWORD=root123
+
+PORT=3000
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/.env.png?raw=true)
+
+---
+
+Update backend/db.js
+
+Change the connection settings to use environment variables
+
+const mysql = require("mysql2");
+
+const connection = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
+});
+
+connection.connect((err) => {
+    if (err) {
+        console.error("Database connection failed:", err);
+    } else {
+        console.log("Connected to MySQL");
+    }
+});
+
+module.exports = connection;
+
+No more; host: "localhost"
+
+or
+
+host: "host.docker.internal"
+
+Docker Compose will provide
+
+DB_HOST=db
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/db.js%20compose.png?raw=true)
+
+---
+
+Create docker-compose.yml
+
+In the project root
+
+version: "3.9"
+
+services:
+
+  db:
+    image: mysql:8.0
+    container_name: mysql-container
+
+    restart: always
+
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+
+    ports:
+      - "3306:3306"
+
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  app:
+    build: ./backend
+
+    container_name: student-backend
+
+    depends_on:
+      - db
+
+    ports:
+      - "3000:3000"
+
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: root123
+      DB_NAME: studentdb
+
+  web:
+    build: ./frontend
+
+    container_name: student-frontend
+
+    depends_on:
+      - app
+
+    ports:
+      - "80:80"
+
+volumes:
+
+  mysql-data:
+
+  ![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/docker-compose.yml.png?raw=true)
+
+  ![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/docker%20ps%20compose%20.png?raw=true)
+
+  ---
+
+Stop Previous Containers
+
+If any containers are still running
+
+docker ps
+
+Stop them
+
+docker stop student-backend-container
+
+docker stop student-frontend-container
+
+docker stop mysql-container
+
+Remove them
+
+docker rm student-backend-container
+
+docker rm student-frontend-container
+
+docker rm mysql-container
+
+---
+
+Start Everything
+
+From the project root
+
+docker compose up -d
+
+
+Docker Compose will:
+
+Build the backend image
+
+Build the frontend image
+
+Pull the MySQL image (if needed)
+
+Create a network
+
+Create the volume
+
+Start all three containers
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/docker%20compose%20up%20.png?raw=true)
+
+---
+
+Verify
+
+Run:
+
+docker compose ps
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/docker%20complete%20.png?raw=true)
+
+
+---
+
+Test the Application
+
+Open
+
+http://localhost
+
+We should see:
+
+Student Management System
+
+Click
+
+Load Students
+
+The frontend should call
+
+Backend
+
+The backend should call
+
+MySQL
+
+Students should appear in the table.
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Complete%20system%20.png?raw=true)
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Complete%20records%20system%20.png?raw=true)
+
+
+
+  
