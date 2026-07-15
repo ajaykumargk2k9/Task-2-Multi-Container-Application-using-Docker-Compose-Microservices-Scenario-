@@ -362,13 +362,6 @@ Create a Database Connection
 
 Inside the backend folder create a file structure
 
-backend/
-│
-├── app.js
-├── db.js   ← Create this file
-├── package.json
-└── Dockerfile
-
 Add Database Connection Code
 
 Create backend/db.js:
@@ -392,3 +385,83 @@ connection.connect((err) => {
 });
 
 module.exports = connection;
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/db.js.png?raw=true)
+
+---
+
+Update app.js
+
+Replace our current app.js with:
+
+const express = require("express");
+const cors = require("cors");
+const db = require("./db");
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+app.get("/", (req, res) => {
+    res.send("Student Management Backend is Running!");
+});
+
+app.get("/students", (req, res) => {
+
+    db.query("SELECT * FROM students", (err, result) => {
+
+        if (err) {
+            return res.status(500).json(err);
+        }
+
+        res.json(result);
+
+    });
+
+});
+
+const PORT = 3000;
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/app.js.png?raw=true)
+
+---
+
+Enter the Backend directory and start the backend 
+
+npm start
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Enter%20and%20start%20backend.png?raw=true)
+
+---
+
+Test the API
+
+Open: http://localhost:3000/students
+
+We should see the student records we inserted
+
+[
+  {
+    "id": 1,
+    "name": "Ajay",
+    "email": "ajay@example.com",
+    "course": "Docker",
+    "phone": "9876543210"
+  },
+  {
+    "id": 2,
+    "name": "John",
+    "email": "john@example.com",
+    "course": "Node.js",
+    "phone": "9876543211"
+  }
+]
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Test%20the%20Backend%20api.png?raw=true)
+
+
