@@ -17,6 +17,7 @@ Docker Compose automatically creates a network starts containers in the correct 
 
 
 
+
 🎯 Objective
 
 Develop and deploy a multi-container application where:
@@ -24,18 +25,13 @@ Develop and deploy a multi-container application where:
 
 🌐 indx.html serves the frontend
 
-
 ⚙️ Backend exposes REST APIs 
-
 
 🗄️ MySQL stores application data
 
-
 🐳 Docker Compose orchestrates all services
 
-
 🔗 Containers communicate through a private Docker network
-
 
 💾 Database data persists using Docker Volumes
 
