@@ -36,6 +36,7 @@ Setup networking between containers
 ----
 
 🔧 Expected Steps
+
 Define services in compose file
 
 Use official images (nginx, mysql)
