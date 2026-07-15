@@ -141,7 +141,7 @@ Open package.json and make sure it contains a start script like this
   }
 }
 
-https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/package.json.png?raw=true
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/package.json.png?raw=true)
 
 ---
 
@@ -182,7 +182,7 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
-https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/app.json.png?raw=true
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/app.json.png?raw=true)
 
 ---
 
@@ -192,7 +192,7 @@ npm start
 
 We should see: Server is running on port 3000
 
-https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/npm%20start.png?raw=true
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/npm%20start.png?raw=true)
 
 ---
 
@@ -204,7 +204,7 @@ Home page
 
 Expected output: Student Management Backend is Running!
 
-https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Test%20the%20API.png?raw=true
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Test%20the%20API.png?raw=true)
 
 ---
 
@@ -227,7 +227,7 @@ Expected output
   }
 ]
 
-https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Students%20API.png?raw=true
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Students%20API.png?raw=true)
 
 
 
