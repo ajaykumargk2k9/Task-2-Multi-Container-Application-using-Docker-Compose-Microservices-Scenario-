@@ -54,7 +54,7 @@ The application consists of:
 
 Docker Compose automatically creates a network starts containers in the correct order and simplifies deployment with a single command.
 
-
+----
 
 Project: Student Management System using Docker Compose
 
