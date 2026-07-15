@@ -8,23 +8,31 @@ Deploy a multi-tier application using Docker Compose.
 ---
 
 🧩 Scenario
-You are building a 3-tier application:
+We are building a 3-tier application:
 
 ---
 
 Frontend (Nginx)
+
 Backend (Node.js / Flask)
+
 Database (MySQL)
 
 ---
 
-📌 Requirement s
+📌 Requirements
 Create docker-compose.yml
+
 Services:
+
 web (frontend)
+
 app (backend)
+
 db (MySQL)
+
 Use environment variables
+
 Setup networking between containers
 
 ----
