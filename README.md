@@ -48,14 +48,17 @@ Use volumes for DB data persistence
 ----
 
 ✅ Expected Output
+
 Access application via:
 
 http://localhost
+
 Backend should connect to DB successfully
 
 ---
 
 💡 Bonus
+
 Use .env file for credentials
 
 ----
