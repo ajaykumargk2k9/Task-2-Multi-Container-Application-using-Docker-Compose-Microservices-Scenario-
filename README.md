@@ -4,7 +4,7 @@
 
 This project demonstrates how to build and orchestrate a 3-tier microservices application using Docker Compose. Instead of running each service independently, Docker Compose manages all containers together enabling seamless communication between the frontend, backend and database.
 
-The application consists of
+The application consists of:
 
 🌐 Frontend: Index.html serving static web pages
 
