@@ -465,3 +465,54 @@ We should see the student records we inserted
 ![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Test%20the%20Backend%20api.png?raw=true)
 
 
+---
+
+Build the Frontend
+
+Create a simple web page that displays student data by calling our backend API.
+
+Open the frontend folder and create a file structure
+
+Create index.html
+
+Replace its contents with:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>Student Management System</h1>
+
+    <button onclick="loadStudents()">
+        Load Students
+    </button>
+
+    <table id="studentsTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Course</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        </tbody>
+
+    </table>
+
+<script src="script.js"></script>
+
+</body>
+</html>
+
+
