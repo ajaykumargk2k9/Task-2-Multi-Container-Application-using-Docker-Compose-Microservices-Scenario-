@@ -515,4 +515,115 @@ Replace its contents with:
 </body>
 </html>
 
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/index.html.png?raw=true)
 
+---
+
+Create style.css
+
+body{
+    font-family: Arial;
+    margin:40px;
+}
+
+h1{
+    color:#333;
+}
+
+button{
+    padding:10px 20px;
+    margin-bottom:20px;
+    cursor:pointer;
+}
+
+table{
+    border-collapse:collapse;
+    width:100%;
+}
+
+table,th,td{
+    border:1px solid black;
+}
+
+th,td{
+    padding:10px;
+    text-align:left;
+}
+
+th{
+    background:#f2f2f2;
+}
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/style.css.png?raw=true)
+
+---
+
+Create script.js
+
+async function loadStudents(){
+
+    const response = await fetch("http://localhost:3000/students");
+
+    const students = await response.json();
+
+    const tbody = document.querySelector("#studentsTable tbody");
+
+    tbody.innerHTML = "";
+
+    students.forEach(student => {
+
+        tbody.innerHTML += `
+            <tr>
+                <td>${student.id}</td>
+                <td>${student.name}</td>
+                <td>${student.email}</td>
+                <td>${student.course}</td>
+                <td>${student.phone}</td>
+            </tr>
+        `;
+
+    });
+
+}
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/script.js.png?raw=true)
+
+---
+
+Run the Frontend
+
+Since we haven't added Nginx yet we can use the Live Server extension in VS Code.
+
+Open Extensions (Ctrl + Shift + X).
+
+Search for Live Server by Ritwick Dey.
+
+Install it.
+
+Right-click index.html.
+
+Select Open with Live Server.
+
+Our browser will open a local address such as:
+
+http://127.0.0.1:5500
+
+Test the Application
+
+Make sure Node.js backend is running
+
+npm start
+
+Open the frontend in our browser.
+
+Click Load Students.
+
+We should see the student records from MySQL displayed in the table.
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Live%20Server.png?raw=true)
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Open%20Live%20Server.png?raw=true)
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Frontend%20.png?raw=true)
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Frondend%20records.png?raw=true)
