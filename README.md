@@ -115,6 +115,120 @@ Created the root files, final structure looks like this
 
 ![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Final%20Folder%20Structure.png?raw=true)
 
+---
+
+Build the Node.js + Express Backend
+
+Open the backend folder
+
+In VS Code open the integrated terminal and navigate to the backend folder 
+
+Initialize a Node.js project
+
+Install required packages
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/npm.png?raw=true)
+
+---
+
+Update package.json
+
+Open package.json and make sure it contains a start script like this
+
+{
+  "scripts": {
+    "start": "node app.js"
+  }
+}
+
+https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/package.json.png?raw=true
+
+---
+
+Create app.js
+
+Replace the contents of backend/app.js with
+
+const express = require("express");
+const cors = require("cors");
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+app.get("/", (req, res) => {
+    res.send("Student Management Backend is Running!");
+});
+
+app.get("/students", (req, res) => {
+    res.json([
+        {
+            id: 1,
+            name: "Ajay",
+            course: "Docker"
+        },
+        {
+            id: 2,
+            name: "John",
+            course: "Node.js"
+        }
+    ]);
+});
+
+const PORT = 3000;
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+
+https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/app.json.png?raw=true
+
+---
+
+Start the backend with the command 
+
+npm start
+
+We should see: Server is running on port 3000
+
+https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/npm%20start.png?raw=true
+
+---
+
+Test the API
+
+Open your browser and visit:
+
+Home page
+
+Expected output: Student Management Backend is Running!
+
+https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Test%20the%20API.png?raw=true
+
+---
+
+Students API
+
+http://localhost:3000/students
+
+Expected output
+
+[
+  {
+    "id": 1,
+    "name": "Ajay",
+    "course": "Docker"
+  },
+  {
+    "id": 2,
+    "name": "John",
+    "course": "Node.js"
+  }
+]
+
+https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Students%20API.png?raw=true
+
 
 
 
