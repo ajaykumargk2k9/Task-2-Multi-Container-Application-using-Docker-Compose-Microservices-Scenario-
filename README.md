@@ -82,6 +82,42 @@ cd student-management
 ![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Student%20Management%20Folder.PNG?raw=true)
 
 
+---
+
+Open the project in VS Code. VS Code should open with the student-management folder.
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/code%20..png?raw=true)
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/VS%20Code.png?raw=true)
+
+---
+
+Created the folder structure with these folders 
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Folder%20Structure.png?raw=true)
+
+
+---
+
+Created the backend files 
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Backend.png?raw=true)
+
+---
+
+Created thedatabase & frontend files 
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Database%20&%20frontend%20.png?raw=true)
+
+---
+
+Created the root files, final structure looks like this
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Final%20Folder%20Structure.png?raw=true)
+
+
+
+
 
 
 
