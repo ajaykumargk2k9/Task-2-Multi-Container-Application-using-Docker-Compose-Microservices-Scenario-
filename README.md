@@ -627,3 +627,121 @@ We should see the student records from MySQL displayed in the table.
 ![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Frontend%20.png?raw=true)
 
 ![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Frondend%20records.png?raw=true)
+
+---
+
+Dockerize the Backend
+
+Containerize the Node.js backend so it runs inside Docker instead of directly on our computer.
+
+The backend will still connect to MySQL using localhost only if we're running MySQL on your host. Since your MySQL is already in a Docker container we'll temporarily use Docker networking with host.docker.internal. 
+
+Update db.js
+
+Replace
+
+host: "localhost"
+
+with
+
+host: "host.docker.internal"
+
+So it becomes
+
+const mysql = require("mysql2");
+
+const connection = mysql.createConnection({
+    host: "host.docker.internal",
+    user: "root",
+    password: "root123",
+    database: "studentdb"
+});
+
+connection.connect((err) => {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log("Connected to MySQL");
+    }
+});
+
+module.exports = connection;
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/db.js%20update.png?raw=true)
+
+---
+
+Create the Backend Dockerfile
+
+Create backend/Dockerfile
+
+FROM node:22-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/docker%20compose%20dockerfile.png?raw=true)
+
+
+---
+
+Build the Docker Image
+
+From the backend folder run
+
+docker build -t student-backend .
+
+Verify
+
+docker images
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/docker%20compose%20docker%20build%20.png?raw=true)
+
+---
+
+Run the Backend Container
+
+docker run -d -p 3000:3000 --name student-backend-container student-backend
+
+Verify the Container
+
+docker ps
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/docker%20compose%20ps%20.png?raw=true)
+
+---
+
+Check the Logs
+
+docker logs student-backend-container
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/docker%20compose%20logs.png?raw=true)
+
+---
+
+Test the API
+
+http://localhost:3000/students
+
+We should see the student records from MySQL.
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Testing%20docker%20compose%20students%20.png?raw=true)
+
+---
+
+Stop and Remove the Container
+
+docker stop student-backend-container
+
+docker rm student-backend-container
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Stop%20and%20remove%20docker%20compose%20container%20.png?raw=true)
