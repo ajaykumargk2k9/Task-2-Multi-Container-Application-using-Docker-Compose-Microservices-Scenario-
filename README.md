@@ -10,8 +10,6 @@ Deploy a multi-tier application using Docker Compose.
 🧩 Scenario
 We are building a 3-tier application:
 
----
-
 Frontend (Nginx)
 
 Backend (Node.js / Flask)
