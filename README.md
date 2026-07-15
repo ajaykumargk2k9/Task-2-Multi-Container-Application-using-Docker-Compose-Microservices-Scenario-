@@ -230,8 +230,126 @@ Expected output
 ![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Students%20API.png?raw=true)
 
 
+---
 
+Create the MySQL Database
 
+Pull the MySQL image and verify the image
+
+Open the terminal and run: 
+
+docker pull mysql:8.0
+
+docker images
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Pull%20images.png?raw=true)
+
+---
+
+Create a Docker volume
+
+We'll use a volume so our database data isn't lost when the container stops.
+
+docker volume create mysql-data
+
+Verify it with:
+
+docker volume ls
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Docker%20volume%20.png?raw=true)
+
+---
+
+Start the MySQL container and verify the container is running
+
+docker run -d --name mysql-container -e MYSQL_ROOT_PASSWORD=root123 -e MYSQL_DATABASE=studentdb -p 3306:3306 -v mysql-data:/var/lib/mysql mysql:8.0
+
+docker ps
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Start%20the%20container%20.png?raw=true)
+
+---
+
+Check the logs 
+
+docker logs mysql-container
+
+wait until you see a message similar to 
+
+ready for connections 
+
+This means MySQL has started successfully.
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Docker%20Logs.png?raw=true)
+
+---
+
+Connect to MySQL
+
+docker exec -it mysql-container mysql -u root -p
+
+When prompted enter: root123
+
+We should see the MySQL prompt: 
+
+mysql>
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Connect%20to%20MySql.png?raw=true)
+
+---
+
+Show the databases
+
+At the MySQL prompt run:
+
+SHOW DATABASES;
+
+Use the database
+
+USE studentdb;
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Show%20databases.png?raw=true)
+
+---
+
+Create the students table
+
+CREATE TABLE students (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    course VARCHAR(100),
+    phone VARCHAR(20)
+);
+
+Verify the table
+
+SHOW TABLES;
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Create%20table%20.png?raw=true)
+
+---
+
+Insert sample data
+
+INSERT INTO students(name,email,course,phone)
+VALUES
+('Ajay','ajay@example.com','Docker','9876543210'),
+('John','john@example.com','Node.js','9876543211');
+
+Verify the data
+
+SELECT * FROM students;
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Insert%20table.png?raw=true)
+
+---
+
+Exit MySQL
+
+EXIT;
+
+![image alt](https://github.com/ajaykumargk2k9/Task-2-Multi-Container-Application-using-Docker-Compose-Microservices-Scenario-/blob/main/Exit.png?raw=true)
 
 
 
