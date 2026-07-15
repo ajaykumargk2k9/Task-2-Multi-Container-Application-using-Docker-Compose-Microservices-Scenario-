@@ -12,6 +12,7 @@ Frontend (Nginx)
 Backend (Node.js / Flask)
 Database (MySQL)
 
+
 📌 Requirement s
 Create docker-compose.yml
 Services:
@@ -36,9 +37,12 @@ Backend should connect to DB successfully
 💡 Bonus
 Use .env file for credentials
 
+
+
 📌 Project Overview
 
 This project demonstrates how to build and orchestrate a 3-tier microservices application using Docker Compose. Instead of running each service independently, Docker Compose manages all containers together enabling seamless communication between the frontend, backend and database.
+
 
 The application consists of:
 
