@@ -29,8 +29,21 @@ pipeline {
         stage('Cleanup Old Containers') {
            steps {
                 bat 'docker compose down || exit 0'
+            }
+        }
+
+        stage('Docker Login') {
+    steps {
+        withCredentials([usernamePassword(
+            credentialsId: 'dockerhub-creds',
+            usernameVariable: 'DOCKER_USER',
+            passwordVariable: 'DOCKER_PASS'
+        )]) {
+            bat 'echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin'
+        }
     }
 }
+
         stage('Build Docker Images') {
             steps {
                 bat 'docker compose build'
