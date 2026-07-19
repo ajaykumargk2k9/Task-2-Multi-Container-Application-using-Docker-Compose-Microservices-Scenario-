@@ -27,62 +27,40 @@ pipeline {
         }
 
         stage('Cleanup Old Containers') {
-           steps {
+            steps {
                 bat 'docker compose down || exit 0'
             }
         }
 
-      stage('Docker Login Test') {
-    steps {
-        withCredentials([usernamePassword(
-            credentialsId: 'dockerhub-creds',
-            usernameVariable: 'DOCKER_USER',
-            passwordVariable: 'DOCKER_PASS'
-        )]) {
-
-            bat '''
-                echo ==================================
-                echo Docker Username:
-                echo %DOCKER_USER%
-                echo ==================================
-                echo Logging into Docker Hub...
-                echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
-            '''
-        }
-    }
-}
-
-  
-  /*
-       stage('Build Docker Images') {
+        stage('Docker Login Test') {
             steps {
-                bat 'docker compose build'
-            }
-        }
-
-     //   stage('Start Containers') {
-            steps {
-                bat 'docker compose up -d'
-            }
-        }
-
-     //   stage('Verify Running Containers') {
-            steps {
-                bat 'docker compose ps'
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'dockerhub-creds',
+                        usernameVariable: 'DOCKER_USER',
+                        passwordVariable: 'DOCKER_PASS'
+                    )
+                ]) {
+                    bat '''
+                    echo ==================================
+                    echo Docker Username:
+                    echo %DOCKER_USER%
+                    echo ==================================
+                    echo Logging into Docker Hub...
+                    echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
+                    '''
+                }
             }
         }
     }
-    */
 
     post {
         success {
-            echo 'CI Pipeline completed successfully!'
+            echo 'Pipeline completed successfully!'
         }
-
         failure {
-            echo 'CI Pipeline failed.'
+            echo 'Pipeline failed.'
         }
-
         always {
             echo 'Pipeline execution finished.'
         }
