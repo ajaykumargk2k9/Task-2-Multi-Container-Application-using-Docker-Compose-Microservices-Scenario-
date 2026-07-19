@@ -26,6 +26,11 @@ pipeline {
             }
         }
 
+        stage('Cleanup Old Containers') {
+           steps {
+                bat 'docker compose down || exit 0'
+    }
+}
         stage('Build Docker Images') {
             steps {
                 bat 'docker compose build'
