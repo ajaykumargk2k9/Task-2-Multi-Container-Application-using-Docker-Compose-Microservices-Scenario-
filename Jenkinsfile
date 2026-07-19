@@ -32,31 +32,39 @@ pipeline {
             }
         }
 
-        stage('Docker Login') {
+      stage('Docker Login Test') {
     steps {
         withCredentials([usernamePassword(
             credentialsId: 'dockerhub-creds',
             usernameVariable: 'DOCKER_USER',
             passwordVariable: 'DOCKER_PASS'
         )]) {
-            bat 'echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin'
+
+            bat '''
+                echo ==================================
+                echo Docker Username:
+                echo %DOCKER_USER%
+                echo ==================================
+                echo Logging into Docker Hub...
+                echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
+            '''
         }
     }
 }
 
-        stage('Build Docker Images') {
+    //    stage('Build Docker Images') {
             steps {
                 bat 'docker compose build'
             }
         }
 
-        stage('Start Containers') {
+     //   stage('Start Containers') {
             steps {
                 bat 'docker compose up -d'
             }
         }
 
-        stage('Verify Running Containers') {
+     //   stage('Verify Running Containers') {
             steps {
                 bat 'docker compose ps'
             }
