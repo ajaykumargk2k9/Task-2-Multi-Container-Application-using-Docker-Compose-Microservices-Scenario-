@@ -2,25 +2,60 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout Verification') {
+
+        stage('Checkout Source') {
             steps {
-                echo 'Repository cloned successfully!'
-                bat 'dir'
+                checkout scm
             }
         }
 
-        stage('Environment') {
+        stage('Verify Environment') {
             steps {
+                bat 'git --version'
                 bat 'node -v'
                 bat 'npm -v'
                 bat 'docker --version'
             }
         }
 
-        stage('Completed') {
+        stage('Install Backend Dependencies') {
             steps {
-                echo 'Student Management CI Pipeline Completed'
+                dir('backend') {
+                    bat 'npm install'
+                }
             }
+        }
+
+        stage('Build Docker Images') {
+            steps {
+                bat 'docker compose build'
+            }
+        }
+
+        stage('Start Containers') {
+            steps {
+                bat 'docker compose up -d'
+            }
+        }
+
+        stage('Verify Running Containers') {
+            steps {
+                bat 'docker compose ps'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'CI Pipeline completed successfully!'
+        }
+
+        failure {
+            echo 'CI Pipeline failed.'
+        }
+
+        always {
+            echo 'Pipeline execution finished.'
         }
     }
 }
