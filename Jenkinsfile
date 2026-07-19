@@ -52,7 +52,9 @@ pipeline {
     }
 }
 
-    //    stage('Build Docker Images') {
+  
+  /*
+       stage('Build Docker Images') {
             steps {
                 bat 'docker compose build'
             }
@@ -70,6 +72,7 @@ pipeline {
             }
         }
     }
+    */
 
     post {
         success {
