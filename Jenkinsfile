@@ -15,6 +15,7 @@ pipeline {
                 bat 'node -v'
                 bat 'npm -v'
                 bat 'docker --version'
+                bat 'docker compose version'
             }
         }
 
@@ -28,41 +29,55 @@ pipeline {
 
         stage('Cleanup Old Containers') {
             steps {
-                bat 'docker compose down || exit 0'
+                bat 'docker compose down'
             }
         }
 
-        stage('Docker Login Test') {
+        stage('Build Docker Images') {
             steps {
-                withCredentials([
-                    usernamePassword(
-                        credentialsId: 'dockerhub-new',
-                        usernameVariable: 'DOCKER_USER',
-                        passwordVariable: 'DOCKER_PASS'
-                    )
-                ]) {
-                    bat '''
-                    echo ==================================
-                    echo Docker Username:
-                    echo %DOCKER_USER%
-                    echo ==================================
-                    echo Logging into Docker Hub...
-                    echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
-                    '''
-                }
+                bat 'docker compose build'
             }
         }
+
+        stage('Start Containers') {
+            steps {
+                bat 'docker compose up -d'
+            }
+        }
+
+        stage('Verify Running Containers') {
+            steps {
+                bat 'docker compose ps'
+            }
+        }
+
+        stage('Health Check') {
+            steps {
+                bat 'docker ps'
+            }
+        }
+
+        stage('Show Logs') {
+            steps {
+                bat 'docker compose logs'
+            }
+        }
+
     }
 
     post {
+
         success {
-            echo 'Pipeline completed successfully!'
+            echo 'CI Pipeline Completed Successfully!'
         }
+
         failure {
-            echo 'Pipeline failed.'
+            echo 'Pipeline Failed!'
         }
+
         always {
-            echo 'Pipeline execution finished.'
+            echo 'Pipeline Finished'
         }
+
     }
 }
